@@ -27,18 +27,18 @@ opts = optimset('MaxFunEvals',1e4);
 % Solving the problem and save the results
 Para_set = fmincon(@(Params)objective_function(Params, data), Para_0,[],[],[],[],LB_Para,UB_Para,[],opts);
 obj = objective_function(Para_set, data); % show the optimized value of objective function
-%%
+
 %%% Calculate confidence interval of parameters
  [ci, halfwidth]= Para_confidence_interval(Para_set,data);
 
 
 %%% One-at-a-time sensitivity analysis
-range = 5.^(-1:0.01:1);
-obj_OAT = NaN * ones(length(range),length(Para_set));
+RelRange = 5.^(-1:0.01:1);
+obj_OAT = NaN * ones(length(RelRange),length(Para_set));
 
 for i = 1:length(Para_set)
     Para_test = Para_set;
-    Para_varied = Para_set(i) * range;
+    Para_varied = Para_set(i) * RelRange;
     
     for j = 1:length(Para_varied)
         Para_test(i) = Para_varied(j);
@@ -49,26 +49,7 @@ end
 save('Para_estimate.mat');
 
 %%% Plot Figures in the main text and supplementary information
-load('Para_estimate.mat');
+% load('Para_estimate.mat');
 model_plot_Fig6(Para_set);
 model_plot_SFig9_SFig10(Para_set, data);
-
-
-%%% Plot results of sensitivity analysis
-figure;
-for i = 1:length(Para_set)
-    subplot(5,6,i)
-    semilogx(range, sqrt(obj_OAT(:,i))/sqrt(523),'k-','LineWidth',1.5);hold on;
-    title(Para_Name(i));
-    ylabel('RMSD');
-    xlabel('Relative change')
-    ylim([0.1 0.4]);
-    xlim([0.2 5]);
-    xticks([0.2 1 5]);
-    xticklabels([0.2 1 5]);
-    ax = gca;
-    ax.LineWidth = 1.0;
-    ax.TickLength = [0.040,0.050];
-    box on;
-end
-% title('One-at-a-time sensitivity analysis');
+model_plot_SFig14(obj_OAT,RelRange,Para_Name);
