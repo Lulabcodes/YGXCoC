@@ -24,12 +24,12 @@ Em = zeros(length(RATIO_G),1);
 Tm = zeros(length(RATIO_G),1);
 
 Pexp = [
-0.1   36.8	0.296810658
-0.3   45.6	0.366599598
-0.4   46.9	0.368131868
-0.5   47.0	0.369956744
-0.7   43.3	0.356232003
-0.9   41.1	0.333739837
+0.1     0.296810658
+0.3 	0.366599598
+0.4   	0.368131868
+0.5   	0.369956744
+0.7   	0.356232003
+0.9   	0.333739837
 ]; % The data of validation experiments. each row shows 'YG fraction' 'Maximal ethanol production' and 'Maximal ethanol yield'
 
 for i = 1:length(RATIO_G)
@@ -45,7 +45,7 @@ end
 MaxEtOHyield_C = Em/(ini_Glu+ini_Xyl);
 
 plot(RATIO_G, MaxEtOHyield_C,'k','LineWidth',2);
-plot(Pexp(:,1),Pexp(:,3),'o','MarkerSize',12,'LineWidth',2,'MarkerFaceColor','r','MarkerEdgeColor','none');
+plot(Pexp(:,1),Pexp(:,2),'o','MarkerSize',12,'LineWidth',2,'MarkerFaceColor','r','MarkerEdgeColor','none');
 ylim([0.1 0.4])
 xlabel('Initial Y_G Fraction');
 ax = gca;
@@ -78,15 +78,15 @@ Tnum = length(Tset);
 Emp = zeros(Tnum,1);
 
 Pexpt = [
--32	    31.321055	0.283641539
--12	    31.17411	0.286896141
- -6	    30.135	    0.284713255
-  0	    35.902391	0.344155770
-  6	    44.094175	0.382663568
- 12	    48.4034	    0.421744905
- 18	    44.235645	0.373353690
- 27	    47.87861	0.376423565
- 40	    36.375	    0.314944438
+-32	    0.283641539
+-12	    0.286896141
+ -6	    0.284713255
+  0	    0.344155770
+  6	    0.382663568
+ 12	    0.421744905
+ 18	    0.373353690
+ 27	    0.376423565
+ 40	    0.314944438
 ];  
 
 
@@ -125,8 +125,8 @@ DelayT = [-Tset(end:-1:1);Tset];
 MaxEtOHyield_T = [Emn(end:-1:1);Emp]/(ini_Glu+ini_Xyl);
 plot(DelayT, MaxEtOHyield_T,'k','LineWidth',2);
 
-plot(Pexpt(1:end-2,1),Pexpt(1:end-2,3),'^','MarkerSize',12,'LineWidth',2,'MarkerFaceColor','b','MarkerEdgeColor','none');
-plot(Pexpt(end-1:end,1),Pexpt(end-1:end,3),'o','MarkerSize',12,'LineWidth',2,'MarkerFaceColor','r','MarkerEdgeColor','none');
+plot(Pexpt(1:end-2,1),Pexpt(1:end-2,2),'^','MarkerSize',12,'LineWidth',2,'MarkerFaceColor','b','MarkerEdgeColor','none');
+plot(Pexpt(end-1:end,1),Pexpt(end-1:end,2),'o','MarkerSize',12,'LineWidth',2,'MarkerFaceColor','r','MarkerEdgeColor','none');
 ylim([0.25 0.45]);
 ylabel('Max yield (g/g)')
 xlabel('Delay Time of Y_G(h)');
